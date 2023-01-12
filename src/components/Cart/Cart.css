@@ -1,0 +1,19 @@
+
+.accounting {
+  display: flex;
+}
+.total{
+  color: red;
+}
+.account-value {
+  margin-left: 5px;
+}
+.order-header {
+  text-align: center;
+}
+.order button {
+  background-color: goldenrod;
+  width: 100% ;
+  border-radius: 5px;
+  border: 1px solid black ;
+}

@@ -1,0 +1,27 @@
+
+.shop{
+  display: flex;
+}
+.product-container{
+  width: 60%;
+  margin-left: 15%;
+  margin-right: 5px;
+  border-right: 1px solid lightgrey;
+}
+.search-container {
+  background-color: black;
+  padding: 10px;
+  color: white;
+}
+.search-container input {
+  width: 70% ;
+  margin-left: 50px;
+  padding: 5px;
+}
+.search-container input:focus {
+  background-color: lightyellow;
+}
+.giphy {
+  display: none;
+  margin: 20% ;
+}

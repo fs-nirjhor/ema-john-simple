@@ -5,7 +5,7 @@ import './Header.css';
 const Header = (props) => {
   return (
   <div className="header">
-  <img src={logo} alt="ema-john" />  
+  <a href="/"><img src={logo} alt="ema-john" /></a>  
   <nav>
     <a href="/shop">Shop</a>
     <a href="/review">Order Review</a>

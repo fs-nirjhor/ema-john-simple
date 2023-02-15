@@ -13,7 +13,7 @@ return (
 <>
   <h5>Shipping options</h5>
 {
-  shippingTypes.map(type => <div key={productKey}>
+  shippingTypes.map((type,i) => <div key={i}>
     <input type="radio" name={productKey} /> <b style={daysStyle}>{type.days} business days</b>
     <br /> <small style={rateStyle}>${type.rate} - {type.name} Shipping</small>
   </div>

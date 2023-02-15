@@ -3,8 +3,8 @@
   display: flex;
 }
 .product-container{
-  width: 60%;
-  margin-left: 5%;
+  /*width: 60%;
+  margin-left: 5%;*/
   margin-right: 5px;
   border-right: 1px solid lightgrey;
 }

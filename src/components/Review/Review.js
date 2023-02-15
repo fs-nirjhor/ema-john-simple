@@ -1,12 +1,13 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { getDatabaseCart, removeFromDatabaseCart, processOrder } from "../../utilities/databaseManager";
+import { useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import { getDatabaseCart, removeFromDatabaseCart } from "../../utilities/databaseManager";
 import fakeData from "../../fakeData";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import Cart from "../Cart/Cart";
-import giphy from "../../images/giphy.gif";
 
 const Review = () => {
+  const navigate = useNavigate();
   const [cart, setCart] = useState([]);
   useEffect(() => {
     const databaseCart = getDatabaseCart();
@@ -23,25 +24,21 @@ const Review = () => {
     setCart(unremovedProduct);
     removeFromDatabaseCart(key);
   };
-  const [isOrderPlaced, setIsOrderPlaced] = useState(false);
-  const handlePlaceOrder = () => {
-    setCart([]);
-    processOrder();
-    setIsOrderPlaced(true);
+  const handleConfirmOrder = () => {
+    // setCart([]);
+    // processOrder();
+    navigate("/shipment");
   };
-  const congratsGiphy = <img src={giphy} alt="loading.." width="100%"/>;
-  let congrats = isOrderPlaced ? congratsGiphy : '' ;
   return (
     <div className="flex-container">
     <div className="product-container">
       {cart.map((product) => (
         <ReviewItem key={product.key} product={product} removeButtonHandler={removeButtonHandler}/>
       ))}
-      {congrats}
     </div>
     <div className="cart-container">
       <Cart cart={cart} >
-      <button className="button" onClick={handlePlaceOrder}>Place Order</button>
+      <button className="button" onClick={handleConfirmOrder}> Confirm Order </button>
       </Cart>
     </div>
         </div>

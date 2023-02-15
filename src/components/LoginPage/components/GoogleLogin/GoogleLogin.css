@@ -1,0 +1,20 @@
+.my-btn {
+  background-color: darkviolet; 
+  border: 2px solid #4CAF50;
+  border-radius: 20px;
+  color: white; 
+  padding: 10px 15px;
+  text-align: center;
+  display: block;
+  font-size: medium;
+  margin: auto;
+  font-weight: bold;
+}
+.loginBox {
+  padding: 10px;
+}
+.footer {
+  background: black;
+  color: white;
+  padding: 5px;
+}

@@ -35,7 +35,7 @@ const Product = (props) => {
             )}
           </div>
           <div className="info">
-            <h3>FEATURE</h3>
+            
           </div>
         </div>
       </div>

@@ -10,6 +10,9 @@
   margin: auto;
   font-weight: bold;
 }
+.my-btn:hover {
+  background-color: violet;
+}
 .loginBox {
   padding: 10px;
 }

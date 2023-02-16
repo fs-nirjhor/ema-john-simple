@@ -47,7 +47,7 @@ const Shop = () => {
         <FontAwesomeIcon icon={faShoppingCart} />
         <span> {cart.length}</span>
       </div>
-      <div className="flex-container">
+      <div className="mx-2 flex-container">
         <div className="product-container">
           {products.map((pd) => (
             <Product

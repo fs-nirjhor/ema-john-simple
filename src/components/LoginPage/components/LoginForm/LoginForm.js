@@ -3,9 +3,12 @@ import "./LoginForm.css";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { useState, useContext} from "react";
 import {LoggedUserContext} from "../../../../App";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginForm = (props) => {
-  const [loggedUser, setLoggerUser] = useContext(LoggedUserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const setLoggerUser = useContext(LoggedUserContext);
   const { user, setUser, auth } = props;
   const { email, password, message, isSuccess } = user;
   const newUser = {...user};
@@ -55,6 +58,7 @@ const LoginForm = (props) => {
     setUser(newUser);
     setLoggerUser(newUser);
     manageUser();
+    navigate(location.state.from);
   })
   .catch((error) => {
     newUser.message = error.code;
@@ -68,9 +72,9 @@ const LoginForm = (props) => {
     onAuthStateChanged(auth, (user) => {
   if (user) {
     updateUser();
-    const displayName = user.displayName;
+    /*const displayName = user.displayName;
   const email = user.email;
-    console.log(user,displayName,email);
+    console.log(user,displayName,email);*/
   } else {
    alert("error in managing user");
   }
@@ -79,10 +83,8 @@ const LoginForm = (props) => {
   const updateUser = () => {
     updateProfile(auth.currentUser, {
   displayName: user.name
-}).then(() => {
-  console.log("Profile updated!");
-  // ...
-}).catch((error) => {
+})
+.catch((error) => {
   alert("Profile not updated!");
   // ...
 });
@@ -124,7 +126,7 @@ const LoginForm = (props) => {
           required
         />
         <br />
-        <input type="submit" name="submit" id="submit" value={hasAccount ? "Sign in" : "Sign up"} className="my-btn"/>
+        <input type="submit" name="submit" id="submit" value={hasAccount ? "Sign in" : "Sign up"} className="my-btn" />
       <p style={messageColor}>{message}</p>
       </form>
     </div>

@@ -5,14 +5,14 @@ import {Link} from "react-router-dom";
 
 const Header = (props) => {
   return (
-  <div className="header">
+  <header className="header">
   <Link to="/"><img src={logo} alt="ema-john" /></Link>  
   <nav>
     <Link to="/shop">Shop</Link>
     <Link to="/review">Order Review</Link>
     <Link to="/inventory">Manage Inventory</Link>
   </nav>
-  </div> 
+  </header> 
   )
 }
  

@@ -6,16 +6,17 @@ import Shop from "./components/Shop/Shop";
 import Review from "./components/Review/Review";
 import Inventory from "./components/Inventory/Inventory";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
-import LoginPage from "./components/LoginPage/LoginPage";
+import Login from "./components/Login/Login";
 import Shipment from "./components/Shipment/Shipment";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import NotFound from "./components/NotFound/NotFound";
 
 export const LoggedUserContext = createContext();
 function App() {
   const [loggedUser, setLoggedUser] = useState({});
 
   return (
-    <LoggedUserContext.Provider value={setLoggedUser} >
+    <LoggedUserContext.Provider value={[loggedUser,setLoggedUser]} >
       <Header />
       <Routes>
         <Route exact path="/" element={<Shop />} />
@@ -23,7 +24,7 @@ function App() {
         <Route path="/review" element={<Review />} />
        
         <Route path="/product/:key" element={<ProductDetails />} />
-        <Route path="login" element={<LoginPage />} />
+        <Route path="login" element={<Login />} />
         <Route
           element={
             <PrivateRoute isAllowed={!!loggedUser.email}/>
@@ -32,9 +33,9 @@ function App() {
           <Route path="/shipment" element={<Shipment/>  }/>
           <Route path="/inventory" element={<Inventory />} />
         </Route>
-        <Route path="*" element={<h1> Oops!! Page not found. (404)</h1>} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
-      <footer className="footer">User: {loggedUser?.email}</footer>
+      <footer className="footer">User: {loggedUser?.username}</footer>
     </LoggedUserContext.Provider>
   );
 }

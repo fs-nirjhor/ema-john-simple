@@ -7,7 +7,7 @@
   text-align: center;
   display: block;
   font-size: medium;
-  margin: auto;
+  margin: auto 10px;
   font-weight: bold;
 }
 .my-btn:hover {
@@ -15,9 +15,4 @@
 }
 .loginBox {
   padding: 10px;
-}
-.footer {
-  background: black;
-  color: white;
-  padding: 5px;
 }

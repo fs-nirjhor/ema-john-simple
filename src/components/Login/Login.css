@@ -1,0 +1,42 @@
+.login-page {
+  text-align: center;
+  background-color: lightcyan;
+  color: blue;
+  height: 100vh;
+  padding: 50px 5px;
+}
+.login-form {
+  border: 10px ridge cyan;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 auto;
+  width: 80%;
+}
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 5px;
+  border: 2px solid lime;
+  border-radius: 5px;
+}
+input[type=checkbox] {
+  display: inline;
+}
+input:focus {
+  background: azure;
+}
+.my-btn {
+  background-color: darkviolet; 
+  border: 2px solid #4CAF50;
+  border-radius: 20px;
+  color: white; 
+  padding: 10px 15px;
+  text-align: center;
+  display: block;
+  font-size: medium;
+  margin: 10px auto;
+  font-weight: bold;
+}
+.my-btn:hover {
+  background-color: violet;
+}

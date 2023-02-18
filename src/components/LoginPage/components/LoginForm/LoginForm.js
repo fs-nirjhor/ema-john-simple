@@ -8,25 +8,24 @@ import { useNavigate, useLocation } from "react-router-dom";
 const LoginForm = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const setLoggerUser = useContext(LoggedUserContext);
+  const [loggedUser,setLoggerUser] = useContext(LoggedUserContext);
   const { user, setUser, auth } = props;
-  const { email, password, message, isSuccess } = user;
-  const newUser = {...user};
+  const { name, email, password, message, isSuccess } = user;
   const [hasAccount, setHasAccount] = useState(false);
   const messageColor = isSuccess ? {color: 'green'} : {color: 'red'} ;
   const handleBlur = (e) => {
     const emailRegExp =
       /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/;
-    //  const passwordRegExp = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$@%&? "])[a-zA-Z0-9!#@$%&?]{6,20}$/ ;
     const passwordRegExp = /^(?=.*\d)[a-zA-Z0-9!#@$%&?]{6,16}$/;
 
     const isFieldValid =
-      e.target.name === "email"
+        e.target.name === "email"
         ? emailRegExp.test(e.target.value)
         : e.target.name === "password"
         ? passwordRegExp.test(e.target.value)
-        : true;
+        : false ;
     if (isFieldValid) {
+      const newUser = {...user};
       newUser[e.target.name] = e.target.value;
       setUser(newUser);
     }
@@ -37,12 +36,14 @@ const LoginForm = (props) => {
         .then((userCredential) => {
           // Signed in
          // const user = userCredential.user;
+         const newUser = {...user};
           newUser.message = "Account created successfully!";
           newUser.isSuccess = true;
+          manageUser();
           setUser(newUser);
-          setLoggerUser(newUser);
         })
         .catch((error) => {
+          const newUser = {...user};
           newUser.message = error.code;
           newUser.isSuccess = false;
           setUser(newUser);
@@ -53,17 +54,21 @@ const LoginForm = (props) => {
   .then((userCredential) => {
     // Signed in 
    // const user = userCredential.user;
+   const newUser = {...user};
     newUser.message = "Logged in successfully!";
     newUser.isSuccess = true;
+    
+    manageUser();
     setUser(newUser);
     setLoggerUser(newUser);
-    manageUser();
     navigate(location.state.from);
   })
   .catch((error) => {
+    const newUser = {...user};
     newUser.message = error.code;
     newUser.isSuccess = false;
     setUser(newUser);
+     setLoggerUser(newUser);
   });
     }
     e.preventDefault();
@@ -72,9 +77,9 @@ const LoginForm = (props) => {
     onAuthStateChanged(auth, (user) => {
   if (user) {
     updateUser();
-    /*const displayName = user.displayName;
-  const email = user.email;
-    console.log(user,displayName,email);*/
+    const displayName = user.displayName;
+    const email = user.email;
+    console.log(user,displayName,email);
   } else {
    alert("error in managing user");
   }
@@ -89,7 +94,7 @@ const LoginForm = (props) => {
   // ...
 });
   };
-  
+  console.log(loggedUser);
   return (
     <section  >
     <div className="login-form">

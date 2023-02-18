@@ -6,6 +6,7 @@
   width: 80%;
 }
 input {
+  display: block;
   margin: 10px;
   padding: 5px;
   border: 2px solid lime;

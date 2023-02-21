@@ -7,7 +7,7 @@ import Review from "./components/Review/Review";
 import Inventory from "./components/Inventory/Inventory";
 import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Login from "./components/Login/Login";
-import Shipment from "./components/Shipment/Shipment";
+import Shipment from "./components/Shipment/ShipmentForm";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import NotFound from "./components/NotFound/NotFound";
 

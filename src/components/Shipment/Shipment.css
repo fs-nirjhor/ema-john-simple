@@ -5,6 +5,6 @@
   display: block;
   margin: 10px auto;
 }
-.error-text {
+.error-text, .shipment-form p {
   color: red;
 }

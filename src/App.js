@@ -35,7 +35,7 @@ function App() {
         </Route>
         <Route path="*" element={<NotFound/>} />
       </Routes>
-      <footer className="footer">User: {loggedUser?.username}</footer>
+      <footer className="footer">{loggedUser?.email}</footer>
     </LoggedUserContext.Provider>
   );
 }

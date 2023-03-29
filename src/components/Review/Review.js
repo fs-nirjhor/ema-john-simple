@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import { getDatabaseCart, removeFromDatabaseCart } from "../../utilities/databaseManager";
-import fakeData from "../../fakeData";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import Cart from "../Cart/Cart";
 
@@ -12,12 +11,16 @@ const Review = () => {
   useEffect(() => {
     const databaseCart = getDatabaseCart();
     const cartKeys = Object.keys(databaseCart);
-    const cartProducts = cartKeys.map((key) => {
-      const product = fakeData.find((pd) => pd.key === key);
-      product.quantity = databaseCart[key];
-      return product;
-    });
-    setCart(cartProducts);
+    fetch(`http://localhost:4000/reviewProducts`, {
+      method: "POST", 
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify(cartKeys)
+    })
+    .then(res => res.json())
+    .then(data => {
+      setCart(data);
+    })
+    .catch(error => console.log(error.message));
   }, []);
   const removeButtonHandler = (key) => {
     const unremovedProduct = cart.filter(pd => pd.key !== key) ;

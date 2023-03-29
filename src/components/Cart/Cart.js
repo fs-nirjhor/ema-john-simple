@@ -1,7 +1,6 @@
 import React from "react";
 import "./Cart.css";
 
-
 const Cart = (props) => {
   const addedProducts = props.cart;
   const precision = (amount) => {
@@ -10,7 +9,8 @@ const Cart = (props) => {
   };
   const price = precision(
     addedProducts.reduce(
-      (currentPrice, product) => currentPrice + product.price * product.quantity,
+      (currentPrice, product) =>
+        currentPrice + product.price * product.quantity || 1,
       0
     )
   );

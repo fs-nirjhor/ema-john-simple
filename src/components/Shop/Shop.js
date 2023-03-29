@@ -1,6 +1,5 @@
 import React from "react";
 import "./Shop.css";
-import fakeData from "../../fakeData";
 import { useState, useEffect } from "react";
 import Product from "../Product/Product";
 import Cart from "../Cart/Cart";
@@ -10,18 +9,29 @@ import { addToDatabaseCart, getDatabaseCart } from "../../utilities/databaseMana
 import { Link } from "react-router-dom";
 
 const Shop = () => {
-  const first10 = fakeData.slice(0, 10);
-  const [products] = useState(first10);
+  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:4000/products`)
+    .then(res => res.json())
+    .then(data => {
+      setProducts(data);
+    })
+    .catch(error => console.log(error.message));
+  }, []);
   useEffect(() => {
     const database = getDatabaseCart();
     const databaseKeys = Object.keys(database);
-    const databaseCart = databaseKeys.map(dbkey => {
-     const cartProduct = fakeData.find(product => product.key === dbkey);
-     cartProduct.quantity = database[dbkey];
-     return cartProduct;
-    });
-    setCart(databaseCart);
+    fetch(`http://localhost:4000/reviewProducts`, {
+      method: "POST", 
+      headers: {"Content-type": "application/json"},
+      body: JSON.stringify(databaseKeys)
+    })
+    .then(res => res.json())
+    .then(data => {
+      setCart(data);
+    })
+    .catch(error => console.log(error.message));
   }, []);
   const addButtonHandler = (product) => {
     const toBeAddedKey = cart.find(pd => pd.key === product.key);

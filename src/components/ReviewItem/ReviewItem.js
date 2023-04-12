@@ -3,7 +3,7 @@ import Shipping from "../Shipping/Shipping";
 
 const ReviewItem = (props) => {
   const { product, removeButtonHandler } = props;
-  const { name, price, quantity, key } = product;
+  const { name, price, key } = product;
   const reviewItemStyle = {
     borderBottom: "1px solid lightgrey",
     marginLeft: "10px",

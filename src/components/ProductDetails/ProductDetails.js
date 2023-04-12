@@ -8,7 +8,7 @@ const ProductDetails = () => {
   //const product = products.find(product => product.key === key);
   const [product, setProduct] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:4000/products/${key}`)
+    fetch(`https://ema-john-fsn-server.onrender.com/products/${key}`)
     .then(res => res.json())
     .then(data => {
       setProduct(data);

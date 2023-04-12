@@ -11,7 +11,7 @@ const Review = () => {
   useEffect(() => {
     const databaseCart = getDatabaseCart();
     const cartKeys = Object.keys(databaseCart);
-    fetch(`http://localhost:4000/reviewProducts`, {
+    fetch(`https://ema-john-fsn-server.onrender.com/reviewProducts`, {
       method: "POST", 
       headers: {"Content-type": "application/json"},
       body: JSON.stringify(cartKeys)

@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { LoggedUserContext } from "../../App";
+import { getDatabaseCart, processOrder } from "../../utilities/databaseManager";
+
 import "./Shipment.css";
 
 const Shipment = () => {
-  const [loggedUser, setLoggedUser] = useContext(LoggedUserContext);
+  const [loggedUser] = useContext(LoggedUserContext);
   const {
     handleSubmit,
     register,
@@ -12,53 +14,67 @@ const Shipment = () => {
   } = useForm({
     defaultValues: {
       email: loggedUser.email,
-      username: loggedUser.username,
+      name: loggedUser.username,
     },
   });
-  const onSubmit = (values) => console.log(values);
+  const onSubmit = (data) => {
+    const databaseCart = getDatabaseCart();
+    const order = {
+      ...data,
+      order: databaseCart,
+      time: new Date(),
+    };
+    fetch(`https://ema-john-fsn-server.onrender.com/addOrder`, {
+      method: "POST",
+      headers: {'Content-type': 'application/json'},
+      body: JSON.stringify(order) 
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data?.insertedId) {
+      alert("Order Successful");
+      processOrder();
+      } else {alert("Order Failed")}
+    })
+    .catch(error => console.log(error.message));
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="shipment-form">
+      <input
+        type="text"
+        placeholder="Your Name"
+        {...register("name", { required: true })}
+      />
+      {errors.name && <span className="error-text"> Name is required </span>}
       <input
         type="email"
         placeholder="Your Email"
         {...register("email", {
           required: true,
-          pattern: {
-            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-            message: "invalid email address"
-          }
         })}
       />
-      {errors.email && <span className="error-text">{errors.email.message}</span>}
+      {errors.email && <span className="error-text"> Email is required </span>}
 
       <input
         type="text"
-        placeholder="Your Name"
-        {...register("username", { required: true, maxLength: 20 })}
+        placeholder="Your Address"
+        {...register("address", { required: true })}
       />
-      {errors.username && <span className="error-text">invalid name</span>}
+      {errors.address && (
+        <span className="error-text">Address is Required</span>
+      )}
       <input
         type="tel"
         placeholder="Mobile Number"
         {...register("number", {
-          required: true, minLength: 11
+          required: true,
+          minLength: 11,
         })}
       />
-      {errors.number && <span className="error-text">invalid number</span>}
-      <input
-        type="password"
-        placeholder="Your Password"
-        {...register("password", {
-          required: true, 
-          minLength: 6,
-          pattern: {
-            value: /^(?=.*\d)[a-zA-Z0-9!#@$%&?]{6,16}$/i,
-            message: "invalid password"
-          }
-        })}
-      />
-      {errors.password && <span className="error-text">{errors.password.message}</span>}
+      {errors.number && (
+        <span className="error-text">Valid Mobile Number is Required</span>
+      )}
 
       <input type="submit" value="Submit" />
     </form>
@@ -66,34 +82,3 @@ const Shipment = () => {
 };
 
 export default Shipment;
-
-/*
-import React from 'react';
-import { useForm } from 'react-hook-form';
-
-export default function App() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
-  console.log(errors);
-  
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="First name" {...register("First name", {required: true, maxLength: 80})} />
-      <input type="text" placeholder="Last name" {...register("Last name", {required: true, maxLength: 100})} />
-      <input type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} />
-      <input type="tel" placeholder="Mobile number" {...register("Mobile number", {required: true, minLength: 6, maxLength: 12})} />
-      <select {...register("Title", { required: true })}>
-        <option value="Mr">Mr</option>
-        <option value="Mrs">Mrs</option>
-        <option value="Miss">Miss</option>
-        <option value="Dr">Dr</option>
-      </select>
-
-      <input {...register("Developer", { required: true })} type="radio" value="Yes" />
-      <input {...register("Developer", { required: true })} type="radio" value="No" />
-
-      <input type="submit" />
-    </form>
-  );
-}
-*/

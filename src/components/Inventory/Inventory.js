@@ -2,7 +2,7 @@ import fakeData from "../../fakeData";
 
 const Inventory = () => {
   const handleAdd = () => {
-    fetch(`http://localhost:4000/addProduct`, {
+    fetch(`https://ema-john-fsn-server.onrender.com/addProduct`, {
       method: "POST",
       body: JSON.stringify(fakeData),
   		headers: {"Content-type": "application/json; charset=UTF-8"}

@@ -12,17 +12,18 @@ const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:4000/products`)
+    fetch(`https://ema-john-fsn-server.onrender.com/products`)
     .then(res => res.json())
     .then(data => {
       setProducts(data);
     })
     .catch(error => console.log(error.message));
   }, []);
+  console.log(products);
   useEffect(() => {
     const database = getDatabaseCart();
     const databaseKeys = Object.keys(database);
-    fetch(`http://localhost:4000/reviewProducts`, {
+    fetch(`https://ema-john-fsn-server.onrender.com/reviewProducts`, {
       method: "POST", 
       headers: {"Content-type": "application/json"},
       body: JSON.stringify(databaseKeys)
@@ -49,7 +50,6 @@ const Shop = () => {
     setCart(newCart);
     addToDatabaseCart(product.key, quantity);
   };
- 
   return (
     <div>
       <div className="search-container">

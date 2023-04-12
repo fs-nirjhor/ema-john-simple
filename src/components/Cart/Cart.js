@@ -2,21 +2,21 @@ import React from "react";
 import "./Cart.css";
 
 const Cart = (props) => {
-  const addedProducts = props.cart;
+  const {cart} = props;
   const precision = (amount) => {
     const fixedAmount = amount.toFixed(2);
     return Number(fixedAmount);
   };
   const price = precision(
-    addedProducts.reduce(
+    cart.reduce(
       (currentPrice, product) =>
-        currentPrice + product.price * product.quantity || 1,
+        currentPrice + product.price * product.quantity,
       0
     )
-  );
+  ) ;
   /*let price = 0;
- for (let i = 0; i < addedProducts.length; i++) {
-     let product = addedProducts[i];
+ for (let i = 0; i < cart.length; i++) {
+     let product = cart[i];
       price += product.price;
  }*/
   let shipping = 0;
@@ -34,7 +34,7 @@ const Cart = (props) => {
     <div className="order">
       <div className="order-header">
         <h1>Order Summary</h1>
-        <h2>Items Ordered: {addedProducts.length}</h2>
+        <h2>Items Ordered: {cart.length}</h2>
       </div>
       <div className="accounting">
         <div className="account-name">

@@ -4,6 +4,7 @@ import { LoggedUserContext } from "../../App";
 import { getDatabaseCart, processOrder } from "../../utilities/databaseManager";
 
 import "./Shipment.css";
+import Payment from "../Payment/Payment";
 
 const Shipment = () => {
   const [loggedUser] = useContext(LoggedUserContext);
@@ -40,7 +41,8 @@ const Shipment = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="shipment-form">
+   <div className="row">
+    <form onSubmit={handleSubmit(onSubmit)} className="shipment-form col-md-2">
       <input
         type="text"
         placeholder="Your Name"
@@ -78,6 +80,10 @@ const Shipment = () => {
 
       <input type="submit" value="Submit" />
     </form>
+    <div className="col-md-2">
+      <Payment/>
+    </div>
+    </div>
   );
 };
 

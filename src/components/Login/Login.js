@@ -14,7 +14,7 @@ import {
 const Login = () => {
   const [loggedUser, setLoggedUser] = useContext(LoggedUserContext);
   const [myUser, setMyUser] = useState({});
-  const [hasAccount, setHasAccount] = useState(false);
+  const [hasAccount, setHasAccount] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -116,12 +116,7 @@ const Login = () => {
         Login with Facebook
       </button>
       <form className="login-form" onSubmit={handleSubmit}>
-        <input
-          type="checkbox"
-          name="hasAccount"
-          onClick={() => setHasAccount(!hasAccount)}
-        />{" "}
-        <label htmlFor="hasAccount">Already have an account?</label>
+
         {!hasAccount && (
           <input
             type="text"
@@ -155,6 +150,12 @@ const Login = () => {
       <code className="message" style={messageStyle}>
         {myUser?.message}
       </code>
+              <input
+          type="checkbox"
+          name="hasAccount"
+          onClick={() => setHasAccount(!hasAccount)}
+        />{" "}
+        <label htmlFor="hasAccount">Don't have an account?</label>
     </section>
   );
 };

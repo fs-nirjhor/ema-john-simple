@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LoggedUserContext } from "../../App";
 import { getDatabaseCart, processOrder } from "../../utilities/databaseManager";
 
@@ -8,6 +8,7 @@ import Payment from "../Payment/Payment";
 
 const Shipment = () => {
   const [loggedUser] = useContext(LoggedUserContext);
+  const [formData, setFormData] = useState(null);
   const {
     handleSubmit,
     register,
@@ -19,9 +20,13 @@ const Shipment = () => {
     },
   });
   const onSubmit = (data) => {
+    setFormData(data);
+  };
+  const handlePayment = (paymentId) => {
     const databaseCart = getDatabaseCart();
     const order = {
-      ...data,
+      ...formData,
+      paymentId,
       order: databaseCart,
       time: new Date(),
     };
@@ -41,8 +46,8 @@ const Shipment = () => {
   };
 
   return (
-   <div className="row">
-    <form onSubmit={handleSubmit(onSubmit)} className="shipment-form col-md-2">
+   <div >
+    <form onSubmit={handleSubmit(onSubmit)} className="shipment-form" style={{display: formData ? "none" : "block"}}>
       <input
         type="text"
         placeholder="Your Name"
@@ -80,8 +85,8 @@ const Shipment = () => {
 
       <input type="submit" value="Submit" />
     </form>
-    <div className="col-md-2">
-      <Payment/>
+    <div style={{display: formData ? "block" : "none"}}>
+      <Payment handlePayment={handlePayment}/>
     </div>
     </div>
   );

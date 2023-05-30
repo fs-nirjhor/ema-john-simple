@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  //https://ema-john-fsn-server.onrender.com/products
   useEffect(() => {
     fetch(`https://ema-john-fsn-server.onrender.com/products`)
     .then(res => res.json())
@@ -19,7 +20,6 @@ const Shop = () => {
     })
     .catch(error => console.log(error.message));
   }, []);
-  console.log(products);
   useEffect(() => {
     const database = getDatabaseCart();
     const databaseKeys = Object.keys(database);

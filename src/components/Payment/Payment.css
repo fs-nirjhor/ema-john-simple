@@ -68,5 +68,6 @@
 	color: black
 }
 .payment-error{
-	color: red
+	color: red;
+	text-align: center;
 }

@@ -1,6 +1,4 @@
-import { initializeApp } from "firebase/app";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
@@ -8,10 +6,8 @@ import {
   signInWithPopup,
   FacebookAuthProvider,
 } from "firebase/auth";
-import firebaseConfig from "./firebase.config";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import {auth} from "./firebase.config";
 
 export const googleProvider = new GoogleAuthProvider();
 export const facebookProvider = new FacebookAuthProvider();

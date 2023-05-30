@@ -10,6 +10,7 @@ import {
   facebookProvider,
   SignInWithPopup,
 } from "./ManageLogin";
+import {auth} from "./firebase.config";
 
 const Login = () => {
   const [loggedUser, setLoggedUser] = useContext(LoggedUserContext);
@@ -17,7 +18,7 @@ const Login = () => {
   const [hasAccount, setHasAccount] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
-
+  
   const handleGoogleLogin = () => {
     SignInWithPopup(googleProvider)
       .then((result) => {
@@ -75,11 +76,15 @@ const Login = () => {
     newUser.username = user.displayName;
     newUser.email = user.email;
     setLoggedUser(newUser);
+    auth.currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+  sessionStorage.setItem("idToken",idToken);
+}).catch(function(error) {
+  console.log(error);
+});
     if (location.state) {
       navigate(location.state.from);
     }
   };
-
   const emailRegExp =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Za-z]{2,3})\b/;
   const passwordRegExp = /^(?=.*\d)[a-zA-Z0-9!#@$%&?]{6,16}$/;

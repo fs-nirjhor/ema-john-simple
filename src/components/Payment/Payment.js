@@ -9,7 +9,7 @@ import "./Payment.css";
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
-export default function App() {
+export default function Payment({handlePayment}) {
   /*const options = {
     // passing the client secret obtained from the server
     clientSecret: '{{CLIENT_SECRET}}',
@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <Elements stripe={stripePromise} >
-      <CardElementForm />
+      <CardElementForm handlePayment={handlePayment}/>
     </Elements>
   );
 };

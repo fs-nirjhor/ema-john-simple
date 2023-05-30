@@ -11,15 +11,17 @@ import { Link } from "react-router-dom";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  //https://ema-john-fsn-server.onrender.com/products
+  const [search, setSearch] = useState('');
+  // Display all products 
   useEffect(() => {
-    fetch(`https://ema-john-fsn-server.onrender.com/products`)
+    fetch(`https://ema-john-fsn-server.onrender.com/products?search=`+search)
     .then(res => res.json())
     .then(data => {
       setProducts(data);
     })
     .catch(error => console.log(error.message));
-  }, []);
+  }, [search]);
+  // Cart products 
   useEffect(() => {
     const database = getDatabaseCart();
     const databaseKeys = Object.keys(database);
@@ -50,10 +52,13 @@ const Shop = () => {
     setCart(newCart);
     addToDatabaseCart(product.key, quantity);
   };
+  
   return (
     <div>
       <div className="search-container">
-        <input type="search" placeholder="type here to search" /> &nbsp;
+        <input type="search" placeholder="type here to search" onChange = { (event) => setSearch(event.target.value) }
+        
+          /> &nbsp;
         <FontAwesomeIcon icon={faShoppingCart} />
         <span> {cart.length}</span>
       </div>
